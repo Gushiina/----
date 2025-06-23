@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>全景图展示</title>
+  <style>
+    html, body, #pano { width: 100vw; height: 100vh; margin: 0; }
+  </style>
+  <script src="./script/marzipano.js"></script>
+</head>
+<body>
+  <div id="pano"></div>
+  <script>
+    // 这里假设src文件夹下有一个名为pano.jpg的全景图
+    var viewer = new Marzipano.Viewer(document.getElementById('pano'));
+    var source = Marzipano.ImageUrlSource.fromString("./src/pano.jpg");
+    var geometry = new Marzipano.EquirectGeometry([{ width: 4000 }]);
+    var limiter = Marzipano.RectilinearView.limit.traditional(1024, 100*Math.PI/180);
+    var view = new Marzipano.RectilinearView(null, limiter);
+    var scene = viewer.createScene({ source, geometry, view });
+    scene.switchTo();
+  </script>
+</body>
+</html>
